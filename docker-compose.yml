@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  baikal:
+    #image: baikalnginx 
+    image: ckulka/baikal:nginx
+    container_name: telec_calendar
+    volumes:
+    - ./config:/var/www/baikal/config
+    - ./data:/var/www/baikal/Specific
+    - ./html/favicon.ico:/var/www/baikal/html/favicon.ico
+    networks:
+    - telec_vip
+    restart: unless-stopped
+  web:
+    image: tiangolo/uwsgi-nginx-flask:python3.8 
+    container_name: telec_calendar_web
+    volumes:
+    - ./web:/app
+    networks:
+    - telec_vip
+    restart: unless-stopped
+
+networks:
+  telec_vip:
+    external: true
+
