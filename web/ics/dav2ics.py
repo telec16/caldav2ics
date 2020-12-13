@@ -21,6 +21,8 @@ def __processEvent(event: Event, clear: bool) -> Event:
         eventClean.add('CATEGORIES', event["CATEGORIES"], encode=0)
     if False and clear and "DESCRIPTION" in event:
         eventClean.add('DESCRIPTION', event["DESCRIPTION"], encode=0)
+    if clear and "LOCATION" in event:
+        eventClean.add('LOCATION', event["LOCATION"], encode=0)
 
     # Date
     if "DTSTART" in event:
