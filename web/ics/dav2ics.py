@@ -16,7 +16,11 @@ def __processEvent(event: Event, clear: bool) -> Event:
     if clear and "SUMMARY" in event:
         eventClean.add('SUMMARY', event["SUMMARY"], encode=0)
     if not clear and "CATEGORIES" in event:
-        eventClean.add('SUMMARY', ', '.join(event["CATEGORIES"].cats), encode=1)
+        c = event["CATEGORIES"] if type(event["CATEGORIES"]) is list else [event["CATEGORIES"]]
+        cats = []
+        for cat in c:
+            cats.extend(cat.cats)
+        eventClean.add('SUMMARY', ', '.join(cats), encode=1)
     if "CATEGORIES" in event:
         eventClean.add('CATEGORIES', event["CATEGORIES"], encode=0)
     if False and clear and "DESCRIPTION" in event:
